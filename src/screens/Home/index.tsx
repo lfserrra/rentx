@@ -29,16 +29,26 @@ export function Home() {
   }
 
   useEffect(() => {
+    let isMounted = true;
+
     function fetchCars() {
       $api.get('/cars')
         .then(response => {
-          setCars(response.data);
+          if (isMounted) {
+            setCars(response.data);
+          }
         }).finally(() => {
-          setIsLoading(false);
+          if (isMounted) {
+            setIsLoading(false);
+          }
         });
     }
 
     fetchCars();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

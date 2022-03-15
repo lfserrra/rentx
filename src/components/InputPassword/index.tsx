@@ -54,6 +54,7 @@ export function InputPassword({ iconName, value, ...rest }: Props) {
                     secureTextEntry={isPasswordHide}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
+                    autoCorrect={false}
                 />
 
                 <ChangePasswordVisibilityButton onPress={handlePasswordVisibilityChange}>
