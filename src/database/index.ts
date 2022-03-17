@@ -9,7 +9,9 @@ const adapter = new SQLiteAdapter({
     schema: schemas
 });
 
-export const database = new Database({
+const $database = new Database({
     adapter,
     modelClasses: [User, Car]
 });
+
+export default $database;
