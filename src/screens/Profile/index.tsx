@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../../hooks/auth';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import * as Yup from 'yup';
 import * as ImagePicker from 'expo-image-picker';
@@ -40,12 +41,19 @@ export function Profile() {
 
     const theme = useTheme();
     const navigation = useNavigation();
+    const netInfo = useNetInfo();
 
     function handleBack() {
         navigation.goBack();
     }
 
     function handleOptionChange(newOption: 'dataEdit' | 'passwordEdit') {
+        if (netInfo.isConnected !== true && newOption === 'passwordEdit') {
+            Alert.alert('Você está offline', 'Para mudar a senha, conecte-se a internet');
+
+            return;
+        }
+
         setOption(newOption);
     }
 
